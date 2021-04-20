@@ -213,7 +213,7 @@ def trim_to_beat(idxenc, pos, vocab,start_beat,  to_beat=None, include_last_sep=
     beginning = beat2index(idxenc, pos, vocab, start_beat, include_last_sep=include_last_sep)
     cutoff = beat2index(idxenc, pos, vocab, to_beat, include_last_sep=include_last_sep)
     newIdxEnc = idxenc[beginning:]
-    return idxenc[:cutoff]
+    return newIdxEnc[:cutoff]
 
 def mask_input(xb, mask_range, replacement_idx):
     xb = xb.copy()
