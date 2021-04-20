@@ -71,8 +71,8 @@ class MusicItem():
     def new(self):
         return partial(type(self), vocab=self.vocab)
 
-    def trim_to_beat(self, beat, include_last_sep=False):
-        return self.new(trim_to_beat(self.data, self.position, self.vocab, beat, include_last_sep))
+    def trim_to_beat(self, start, beat, include_last_sep=False):
+        return self.new(trim_to_beat(self.data, self.position, self.vocab, start, beat, include_last_sep))
     
     def transpose(self, interval):
         return self.new(tfm_transpose(self.data, interval, self.vocab), position=self._position)
@@ -207,8 +207,10 @@ def tfm_transpose(x, value, vocab):
     x[(x >= vocab.note_range[0]) & (x < vocab.note_range[1])] += value
     return x
 
-def trim_to_beat(idxenc, pos, vocab, to_beat=None, include_last_sep=True):
+def trim_to_beat(idxenc, pos, vocab,start_beat,  to_beat=None, include_last_sep=True):
     if to_beat is None: return idxenc
+    if start_beat is None: return idxenc
+    beginning = beat2index(idxenc, pos, vocab, start_beat, include_last_sep=include_last_sep)
     cutoff = beat2index(idxenc, pos, vocab, to_beat, include_last_sep=include_last_sep)
     return idxenc[:cutoff]
 
