@@ -207,9 +207,9 @@ def tfm_transpose(x, value, vocab):
     x[(x >= vocab.note_range[0]) & (x < vocab.note_range[1])] += value
     return x
 
-def trim_to_beat(idxenc, pos, vocab, start_beat =None, to_beat=None, include_last_sep=True):
-    if to_beat is None: return idxenc
-    if start_beat is None: return idxenc
+def trim_to_beat(idxenc, pos, vocab, start_beat=None, to_beat=None, include_last_sep=True):
+    #if to_beat is None: return idxenc
+    #if start_beat is None: return idxenc
     beginning = beat2index(idxenc, pos, vocab, start_beat, include_last_sep=include_last_sep)
     cutoff = beat2index(idxenc, pos, vocab, to_beat, include_last_sep=include_last_sep)
     newIdxEnc = idxenc[beginning:]
